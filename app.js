@@ -90,9 +90,9 @@ function makeMap(svgId,boxId,tipId,full){
   const tiles=()=>{if(!useTiles||!proj)return;const b=$(boxId),W=b.clientWidth,H=b.clientHeight;const inv=(sx,sy)=>proj.invert([(sx-tk.x)/tk.k,(sy-tk.y)/tk.k]);const p0=inv(0,0),p1=inv(W,H);const mpp=Math.abs(p1[0]-p0[0])/W;let z=Math.max(5,Math.min(17,Math.round(Math.log2(156543.034/mpp))));const sz=TS/2**z;
     const x0=Math.floor((Math.min(p0[0],p1[0])+R0)/sz),x1=Math.floor((Math.max(p0[0],p1[0])+R0)/sz),y0=Math.floor((R0-Math.max(p0[1],p1[1]))/sz),y1=Math.floor((R0-Math.min(p0[1],p1[1]))/sz);const ts=[];
     for(let X=x0;X<=x1;X++)for(let Y=y0;Y<=y1;Y++)ts.push({z,X,Y,k:z+'/'+X+'/'+Y});if(ts.length>120)return;
-    gT.selectAll('image').data(ts,d=>d.k).join('image').attr('href',d=>`https://${'abcd'[(d.X+d.Y)%4]}.basemaps.cartocdn.com/light_all/${d.z}/${d.X}/${d.Y}.png`).each(function(d){const a=proj([-R0+d.X*sz,R0-d.Y*sz]),c=proj([-R0+(d.X+1)*sz,R0-(d.Y+1)*sz]);d3.select(this).attr('x',a[0]).attr('y',a[1]).attr('width',c[0]-a[0]+.5).attr('height',c[1]-a[1]+.5)}).attr('preserveAspectRatio','none')};
-  if(useTiles){const at=document.createElement('div');at.className='attr';at.innerHTML='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://carto.com/attributions">CARTO</a>';$(boxId).appendChild(at);gM.style('fill-opacity',.82)}
-  if(full){zoom=d3.zoom().scaleExtent([1,16]).on('end',()=>tiles()).on('zoom',e=>{tk=e.transform;g.attr('transform',e.transform);gM.selectAll('path').style('stroke-width',p=>(p.sel?2.2:.35)/e.transform.k);gL.selectAll('text').style('font-size',11/e.transform.k+'px').style('stroke-width',3/e.transform.k+'px')});svg.call(zoom);
+    gT.selectAll('image').data(ts,d=>d.k).join('image').attr('href',d=>`https://tile.openstreetmap.org/${d.z}/${d.X}/${d.Y}.png`).each(function(d){const a=proj([-R0+d.X*sz,R0-d.Y*sz]),c=proj([-R0+(d.X+1)*sz,R0-(d.Y+1)*sz]);d3.select(this).attr('x',a[0]).attr('y',a[1]).attr('width',c[0]-a[0]+.5).attr('height',c[1]-a[1]+.5)}).attr('preserveAspectRatio','none')};
+  if(useTiles){gT.style('filter','grayscale(1) brightness(1.06) contrast(.92)');const at=document.createElement('div');at.className='attr';at.innerHTML='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';$(boxId).appendChild(at);gM.style('fill-opacity',.82)}
+  if(full){zoom=d3.zoom().scaleExtent([1,16]).on('end',()=>{tiles();paint()}).on('zoom',e=>{tk=e.transform;g.attr('transform',e.transform);gM.selectAll('path').style('stroke-width',p=>(p.sel?2.2:.35)/e.transform.k);gL.selectAll('text').style('font-size',11/e.transform.k+'px').style('stroke-width',3/e.transform.k+'px')});svg.call(zoom);
     $('zin').onclick=()=>svg.transition().call(zoom.scaleBy,1.6);$('zout').onclick=()=>svg.transition().call(zoom.scaleBy,1/1.6);$('zre').onclick=()=>svg.transition().call(zoom.transform,d3.zoomIdentity)}
   const tip=$(tipId);
   gM.selectAll('path').data(feats).join('path').attr('class','m')
@@ -107,7 +107,7 @@ function makeMap(svgId,boxId,tipId,full){
       const col=d3.scaleSequentialLog([1,mx],d3.interpolateRgbBasis(['#fde9c9','#f2a65a','#c43b2d','#5c0620']));
       gH.raise();gH.selectAll('rect').data(cells).join('rect').attr('x',c=>proj([c[0]*C,(c[1]+1)*C])[0]).attr('y',c=>proj([c[0]*C,(c[1]+1)*C])[1]).attr('width',c=>proj([(c[0]+1)*C,0])[0]-proj([c[0]*C,0])[0]+.3).attr('height',c=>proj([0,c[1]*C])[1]-proj([0,(c[1]+1)*C])[1]+.3).attr('fill',c=>col(c[yi])).attr('opacity',.85).style('pointer-events','none');
       cur.heatMax=mx}
-    if(cur.labels){gL.raise();const lab=cur.labels();gL.selectAll('text').data(lab).join('text').attr('class','lab').attr('text-anchor','middle').attr('x',m=>path.centroid(feats.find(f=>f.c===m.c))[0]).attr('y',m=>path.centroid(feats.find(f=>f.c===m.c))[1]).text(m=>shortN(m.n))}
+    if(cur.labels){gL.raise();const kk=(typeof tk!=='undefined'?tk.k:1)||1,boxes=[];const lab=cur.labels().filter(m=>{const f=feats.find(q=>q.c===m.c),c=path.centroid(f),w=shortN(m.n).length*5.6/kk,h=13/kk,bx=[c[0]-w/2,c[1]-h,c[0]+w/2,c[1]+3/kk];if(boxes.some(o=>bx[0]<o[2]&&bx[2]>o[0]&&bx[1]<o[3]&&bx[3]>o[1])&&m.c!==S.mun)return false;boxes.push(bx);return true});gL.selectAll('text').data(lab).join('text').attr('class','lab').attr('text-anchor','middle').attr('x',m=>path.centroid(feats.find(f=>f.c===m.c))[0]).attr('y',m=>path.centroid(feats.find(f=>f.c===m.c))[1]).text(m=>shortN(m.n))}
   };
   new ResizeObserver(draw).observe($(boxId));
   return{set(o){cur=o;if(!path)draw();else paint()},zoomTo(){if(!full||!path)return;const b=$(boxId),W=b.clientWidth,H=b.clientHeight;
@@ -313,7 +313,7 @@ async function makePDF(){
   const clean=s=>String(s).replace(/[−–]/g,'-').replace(/[’]/g,"'").replace(/[^\x00-\xFF]/g,'');
   const doc=new window.jspdf.jsPDF({unit:'mm',format:'a4'});const W=210;let y=0;
   const ms=scopeMs(),a=agg(ms,S.A),b=agg(ms,S.B),st=agg(M,S.B),m1=S.mun?byC[S.mun]:null,sc=S.mun?byC[S.mun].n:S.dis?T('districtOf',S.dis):S.reg?T('regionOf',S.reg):T('stateName');
-  doc.setFillColor(163,18,58);doc.rect(0,0,W,30,'F');doc.setTextColor(255);doc.setFont('helvetica','bold');doc.setFontSize(17);doc.text(clean(T('pdfTitle')),14,13);
+  doc.setFillColor(163,18,58);doc.rect(0,0,W,30,'F');doc.setTextColor(255);doc.setFont('helvetica','bold');doc.setFontSize(14);doc.text(clean(T('pdfTitle')),14,13,{maxWidth:182});
   doc.setFont('helvetica','normal');doc.setFontSize(11);doc.text(clean(`${sc} · ${S.A} -> ${S.B}`),14,21);doc.setFontSize(8.5);doc.text(clean(T('pdfSource')+' · '+new Date().toISOString().slice(0,10)),14,26.5);
   doc.setTextColor(29,25,22);y=42;
   const L=T('levels'),lv=lvl(b.i);

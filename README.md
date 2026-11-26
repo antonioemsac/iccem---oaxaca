@@ -1,4 +1,4 @@
-# Geoportal ICCEM Oaxaca
+# Portal de Inteligencia Territorial – Oaxaca
 
 Índice de Competitividad Económica Municipal (ICCEM) para los **570 municipios de Oaxaca**, ediciones 2022–2026 del DENUE (INEGI). Extiende el ICCEM-CIIT (46 municipios del Corredor Interoceánico) a todo el estado.
 
@@ -20,7 +20,7 @@ Seis dimensiones con pesos ACP: D1 Diversificación 7.95 %, D2 Alto valor 16.54 
 
 - INEGI, Directorio Estadístico Nacional de Unidades Económicas (DENUE), descarga masiva de Oaxaca: noviembre 2019–2024, mayo 2025 y noviembre 2026.
 - INEGI, Censo de Población y Vivienda 2020; Marco Geoestadístico (vía GeoDa Center).
-- Mapa base: © OpenStreetMap contributors © CARTO.
+- Mapa base: © OpenStreetMap contributors (tile.openstreetmap.org).
 
 ## Actualización de datos
 
@@ -28,4 +28,4 @@ Los scripts de `scripts/` reproducen el cálculo: `agg.py` (conteos por municipi
 
 ## Cómo citar
 
-Salazar Campos, A. (2026). *Geoportal ICCEM Oaxaca: competitividad económica de los 570 municipios, 2022–2026*. Universidad del Istmo.
+Salazar Campos, A. (2026). *Portal de Inteligencia Territorial – Oaxaca: Índice de Competitividad Económica Municipal (ICCEM), 570 municipios, 2022–2026*. Universidad del Istmo.

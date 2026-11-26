@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Geoportal ICCEM Oaxaca</title>
+<title>Portal de Inteligencia Territorial – Oaxaca</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Sans+3:wght@400;600;700&family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -20,7 +20,8 @@ h1,h2,h3{font-family:Archivo,"Noto Sans SC","Noto Sans JP",system-ui,sans-serif;
 h1{font-size:clamp(26px,3.4vw,40px);font-weight:800}h2{font-size:clamp(20px,2.2vw,26px);font-weight:800}h3{font-size:17px;font-weight:700}
 .app{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100vh;background:linear-gradient(90deg,var(--side) 260px,transparent 260px)}
 aside.side{background:var(--side);border-right:1px solid var(--line);padding:22px 16px;position:sticky;top:0;height:100vh;overflow:auto;display:flex;flex-direction:column;gap:14px}
-.brand b{font:800 22px/1.1 Archivo,sans-serif;display:block}.brand span{font-size:13px;color:var(--mute)}
+.brand span{display:block;margin-bottom:8px;line-height:1.35}
+.brand b{font:800 19px/1.15 Archivo,"Noto Sans SC","Noto Sans JP",sans-serif;display:block;text-wrap:balance}.brand span{font-size:13px;color:var(--mute)}
 .mark{width:44px;height:44px;margin-bottom:8px}
 nav.menu{display:flex;flex-direction:column;gap:2px}
 nav.menu a{display:flex;align-items:center;gap:10px;min-height:44px;padding:6px 10px;border-radius:8px;color:var(--ink);text-decoration:none;font-weight:600;font-size:15px;border-left:3px solid transparent}
@@ -114,7 +115,7 @@ details{margin-top:10px}summary{cursor:pointer;font-weight:600;min-height:32px}
   <div class="brandrow">
     <div class="brand">
       <svg class="mark" viewBox="0 0 44 44" aria-hidden="true"><rect width="44" height="44" rx="10" fill="#a3123a"/><path d="M8 32 L16 20 L22 26 L30 12 L36 32 Z" fill="#fbf8f4" opacity=".92"/><circle cx="31" cy="11" r="3.2" fill="#c27a1a"/></svg>
-      <b>ICCEM · Oaxaca</b>
+      <b data-i="brandName"></b>
       <span data-i="brandSub"></span>
     </div>
     <label class="f lang"><span data-i="language"></span><select id="lang"></select></label>

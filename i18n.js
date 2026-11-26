@@ -2,8 +2,9 @@ window.ICCEM_I18N=(()=>{
 const langs={es:{name:'Español',locale:'es-MX'},en:{name:'English',locale:'en-US'},za:{name:'Diidxazá (parcial)',locale:'es-MX'},fr:{name:'Français',locale:'fr-FR'},de:{name:'Deutsch',locale:'de-DE'},pt:{name:'Português',locale:'pt-BR'},zh:{name:'中文',locale:'zh-CN'},ja:{name:'日本語',locale:'ja-JP'}};
 const tx={};
 tx.es={
+brandName:'Portal de Inteligencia Territorial – Oaxaca',
 readingState:(bd,bv,wd,wv,B,chg,A)=>`Lectura: en el conjunto de Oaxaca, la dimensión más fuerte es ${bd} (${bv}) y la más débil ${wd} (${wv}). El ICCEM promedio ${B} cambió ${chg} puntos desde ${A}; elige una región, distrito o municipio para compararlo con el estado.`,
-brandSub:'Sistema de inteligencia territorial · Competitividad económica municipal de Oaxaca',language:'Idioma',menu:'MENÚ',madeBy:'Desarrollado por el Dr. Antonio Salazar Campos · UNISTMO Campus Ixtepec · Datos: INEGI, DENUE',
+brandSub:'Índice de Competitividad Económica Municipal (ICCEM) · 570 municipios',language:'Idioma',menu:'MENÚ',madeBy:'Desarrollado por el Dr. Antonio Salazar Campos · UNISTMO Campus Ixtepec · Datos: INEGI, DENUE',
 region:'Región',district:'Distrito',municipality:'Municipio',yearBase:'Año base',yearCmp:'Año de comparación',onlyCiit:'Solo CIIT (46)',pdf:'Reporte PDF',keyInd:'INDICADORES CLAVE',heat:'Mapa de calor',
 hexTitle:'Hexágono de equilibrio',hexSub:'Seis dimensiones del ICCEM, 0–100',regions:'Regiones',districts:'Distritos',unitA:'Territorio A',unitB:'Territorio B',clickSort:'Toca un encabezado para ordenar y una fila para compararla',
 mxNote:'Color por columna: más oscuro, mayor puntaje',lqNote:'Cociente de localización: >1 especialización frente a Oaxaca (grana), <1 subrepresentación (añil)',
@@ -28,8 +29,8 @@ sensLede:(b,mn,mx,n,stb,sen,ns)=>`El orden del ICCEM cambia poco con otros pesos
 scenario:'Escenario',weights:'Pesos D1–D6 (%)',top50:'Coinciden top 50',scenNames:['ACP (oficial)','Pesos iguales','Énfasis alto valor','Énfasis manufactura','Énfasis dinamismo','Énfasis diversificación'],stabNote:'· ancho P5–P95: ≤11, ≤28, ≤57, >57 lugares',
 places:'Lugares',regPlace:'Lugar regional',rankNote:(n,s,b,a)=>`${n} municipios (${s}). "Lugar" es el lugar estatal en ${b}; "Lugares" es cuánto subió (+) o bajó (−) desde ${a}. Toca una fila para ver su ficha.`,
 fichaAuto:s=>`Sin municipio elegido: se muestra el primer lugar de ${s}. Elige otro en el filtro Municipio o en el mapa.`,inhab:'hab. (2020)',officialCiit:'ICCEM-CIIT oficial (46 municipios)',dimsYears:(a,b)=>`Dimensiones, ${a} → ${b}`,secDetail:(a,b,ta,tb)=>`Unidades económicas por sector, ${a} → ${b} (${ta} → ${tb})`,robTitle:b=>`Robustez de la posición, ${b}`,ivText:(p5,p95,k)=>`En el 90 % de las simulaciones queda entre el lugar ${p5} y el ${p95} (oficial: ${k})`,
-dimension:'Dimensión',dlUnavailable:'Las descargas funcionan al abrir el geoportal en claude.ai.',dlPreparing:'Preparando el archivo…',dlDone:f=>`Listo: ${f}`,dlDeclined:'Descarga cancelada.',dlWait:'Hay una descarga en curso; intenta en unos segundos.',dlFail:'No se pudo generar el archivo.',
-pdfTitle:'ICCEM Oaxaca · Reporte territorial',pdfSource:'Fuente: INEGI, DENUE. Elaboró: Dr. Antonio Salazar Campos, UNISTMO',pdfMethod:'ICCEM: seis dimensiones con pesos ACP (D1 7.95 %, D2 16.54 %, D3 11.68 %, D4 17.13 %, D5 14.13 %, D6 32.57 %), calculadas con el DENUE de INEGI y normalizadas 0–100 con límites comunes a todos los años. Promedios territoriales: media simple de los municipios. Estabilidad: 1,000 simulaciones de pesos Dirichlet.',
+dimension:'Dimensión',dlUnavailable:'Las descargas funcionan al abrir el portal en claude.ai.',dlPreparing:'Preparando el archivo…',dlDone:f=>`Listo: ${f}`,dlDeclined:'Descarga cancelada.',dlWait:'Hay una descarga en curso; intenta en unos segundos.',dlFail:'No se pudo generar el archivo.',
+pdfTitle:'Portal de Inteligencia Territorial – Oaxaca · Reporte ICCEM',pdfSource:'Fuente: INEGI, DENUE. Elaboró: Dr. Antonio Salazar Campos, UNISTMO',pdfMethod:'ICCEM: seis dimensiones con pesos ACP (D1 7.95 %, D2 16.54 %, D3 11.68 %, D4 17.13 %, D5 14.13 %, D6 32.57 %), calculadas con el DENUE de INEGI y normalizadas 0–100 con límites comunes a todos los años. Promedios territoriales: media simple de los municipios. Estabilidad: 1,000 simulaciones de pesos Dirichlet.',
 method:(sp,pe,eds,ns)=>`<h2>Cómo se calcula</h2>
 <p>El ICCEM estatal conserva las seis dimensiones y los pesos ACP del ICCEM-CIIT: D1 Diversificación (7.95 %), D2 Alto valor (16.54 %), D3 Manufactura (11.68 %), D4 Comercio y servicios (17.13 %), D5 Infraestructura (14.13 %) y D6 Dinamismo (32.57 %).</p>
 <ul><li><b>Escala estatal.</b> Los conteos de D2–D5 se transforman con logaritmo y se normalizan 0–100 con mínimos y máximos comunes a todos los años; así un cambio entre años es real y no un reescalamiento.</li>
@@ -47,8 +48,9 @@ method:(sp,pe,eds,ns)=>`<h2>Cómo se calcula</h2>
 <li>Diidxazá: traducción parcial con los términos del comparador ICCEM-CIIT; el resto se muestra en español.</li></ul>`};
 
 tx.en={
+brandName:'Territorial Intelligence Portal – Oaxaca',
 readingState:(bd,bv,wd,wv,B,chg,A)=>`Reading: across Oaxaca, the strongest dimension is ${bd} (${bv}) and the weakest ${wd} (${wv}). The average ${B} ICCEM changed ${chg} points since ${A}; pick a region, district or municipality to compare it with the state.`,
-brandSub:'Territorial intelligence system · Municipal economic competitiveness in Oaxaca',language:'Language',menu:'MENU',madeBy:'Developed by Dr. Antonio Salazar Campos · UNISTMO Ixtepec Campus · Data: INEGI, DENUE',
+brandSub:'Municipal Economic Competitiveness Index (ICCEM) · 570 municipalities',language:'Language',menu:'MENU',madeBy:'Developed by Dr. Antonio Salazar Campos · UNISTMO Ixtepec Campus · Data: INEGI, DENUE',
 region:'Region',district:'District',municipality:'Municipality',yearBase:'Base year',yearCmp:'Comparison year',onlyCiit:'CIIT only (46)',pdf:'PDF report',keyInd:'KEY INDICATORS',heat:'Heat map',
 hexTitle:'Balance hexagon',hexSub:'Six ICCEM dimensions, 0–100',regions:'Regions',districts:'Districts',unitA:'Territory A',unitB:'Territory B',clickSort:'Tap a header to sort and a row to compare it',
 mxNote:'Colour per column: darker means higher score',lqNote:'Location quotient: >1 specialisation vs Oaxaca (red), <1 under-representation (blue)',
@@ -73,8 +75,8 @@ sensLede:(b,mn,mx,n,stb,sen,ns)=>`ICCEM ordering barely changes with other weigh
 scenario:'Scenario',weights:'Weights D1–D6 (%)',top50:'Top-50 overlap',scenNames:['PCA (official)','Equal weights','High-value emphasis','Manufacturing emphasis','Dynamism emphasis','Diversification emphasis'],stabNote:'· P5–P95 width: ≤11, ≤28, ≤57, >57 places',
 places:'Places',regPlace:'Regional rank',rankNote:(n,s,b,a)=>`${n} municipalities (${s}). "Rank" is the ${b} state rank; "Places" is how far it rose (+) or fell (−) since ${a}. Tap a row for its sheet.`,
 fichaAuto:s=>`No municipality selected: showing the top-ranked in ${s}. Choose another in the Municipality filter or on the map.`,inhab:'inhab. (2020)',officialCiit:'Official ICCEM-CIIT (46 municipalities)',dimsYears:(a,b)=>`Dimensions, ${a} → ${b}`,secDetail:(a,b,ta,tb)=>`Business units by sector, ${a} → ${b} (${ta} → ${tb})`,robTitle:b=>`Rank robustness, ${b}`,ivText:(p5,p95,k)=>`In 90% of simulations it ranks between ${p5} and ${p95} (official: ${k})`,
-dimension:'Dimension',dlUnavailable:'Downloads work when the geoportal is opened in claude.ai.',dlPreparing:'Preparing file…',dlDone:f=>`Done: ${f}`,dlDeclined:'Download cancelled.',dlWait:'A download is in progress; try again in a few seconds.',dlFail:'The file could not be generated.',
-pdfTitle:'ICCEM Oaxaca · Territorial report',pdfSource:'Source: INEGI, DENUE. Prepared by Dr. Antonio Salazar Campos, UNISTMO',pdfMethod:'ICCEM: six dimensions with PCA weights (D1 7.95%, D2 16.54%, D3 11.68%, D4 17.13%, D5 14.13%, D6 32.57%), computed from INEGI DENUE and normalised 0–100 with bounds shared across years. Territorial averages: simple mean of municipalities. Stability: 1,000 Dirichlet weight simulations.',
+dimension:'Dimension',dlUnavailable:'Downloads work when the portal is opened in claude.ai.',dlPreparing:'Preparing file…',dlDone:f=>`Done: ${f}`,dlDeclined:'Download cancelled.',dlWait:'A download is in progress; try again in a few seconds.',dlFail:'The file could not be generated.',
+pdfTitle:'Territorial Intelligence Portal – Oaxaca · ICCEM report',pdfSource:'Source: INEGI, DENUE. Prepared by Dr. Antonio Salazar Campos, UNISTMO',pdfMethod:'ICCEM: six dimensions with PCA weights (D1 7.95%, D2 16.54%, D3 11.68%, D4 17.13%, D5 14.13%, D6 32.57%), computed from INEGI DENUE and normalised 0–100 with bounds shared across years. Territorial averages: simple mean of municipalities. Stability: 1,000 Dirichlet weight simulations.',
 method:(sp,pe,eds,ns)=>`<h2>How it is calculated</h2>
 <p>The statewide ICCEM keeps the six dimensions and PCA weights of ICCEM-CIIT: D1 Diversification (7.95%), D2 High value (16.54%), D3 Manufacturing (11.68%), D4 Trade and services (17.13%), D5 Infrastructure (14.13%) and D6 Dynamism (32.57%).</p>
 <ul><li><b>State scale.</b> D2–D5 counts are log-transformed and normalised 0–100 with minima and maxima shared across all years, so a change between years is real, not a rescaling.</li>
@@ -91,8 +93,9 @@ method:(sp,pe,eds,ns)=>`<h2>How it is calculated</h2>
 <li>Downloads: Excel workbook with every municipality, year, dimension, scenario and sector; shapefile (WGS84) with ICCEM 2022–2026 attributes; PDF report of the selected territory.</li></ul>`};
 
 tx.fr={
+brandName:'Portail d’intelligence territoriale – Oaxaca',
 readingState:(bd,bv,wd,wv,B,chg,A)=>`Lecture : pour l’ensemble d’Oaxaca, la dimension la plus forte est ${bd} (${bv}) et la plus faible ${wd} (${wv}). L’ICCEM moyen ${B} a varié de ${chg} points depuis ${A}.`,
-brandSub:'Système d’intelligence territoriale · Compétitivité économique municipale d’Oaxaca',language:'Langue',menu:'MENU',madeBy:'Développé par le Dr Antonio Salazar Campos · UNISTMO Campus Ixtepec · Données : INEGI, DENUE',
+brandSub:'Indice de compétitivité économique municipale (ICCEM) · 570 municipalités',language:'Langue',menu:'MENU',madeBy:'Développé par le Dr Antonio Salazar Campos · UNISTMO Campus Ixtepec · Données : INEGI, DENUE',
 region:'Région',district:'District',municipality:'Municipalité',yearBase:'Année de base',yearCmp:'Année de comparaison',onlyCiit:'CIIT seulement (46)',pdf:'Rapport PDF',keyInd:'INDICATEURS CLÉS',heat:'Carte de chaleur',
 hexTitle:'Hexagone d’équilibre',hexSub:'Six dimensions de l’ICCEM, 0–100',regions:'Régions',districts:'Districts',unitA:'Territoire A',unitB:'Territoire B',clickSort:'Touchez un en-tête pour trier et une ligne pour comparer',
 mxNote:'Couleur par colonne : plus foncé, score plus élevé',lqNote:'Quotient de localisation : >1 spécialisation par rapport à Oaxaca (rouge), <1 sous-représentation (bleu)',
@@ -118,11 +121,12 @@ scenario:'Scénario',weights:'Poids D1–D6 (%)',top50:'Recouvrement top 50',sce
 places:'Rangs gagnés',regPlace:'Rang régional',rankNote:(n,s,b,a)=>`${n} municipalités (${s}). « Rang » : rang dans l’État en ${b} ; « Rangs gagnés » depuis ${a}. Touchez une ligne pour la fiche.`,
 fichaAuto:s=>`Aucune municipalité choisie : affichage de la première de ${s}.`,inhab:'hab. (2020)',officialCiit:'ICCEM-CIIT officiel (46 municipalités)',dimsYears:(a,b)=>`Dimensions, ${a} → ${b}`,secDetail:(a,b,ta,tb)=>`Unités économiques par secteur, ${a} → ${b} (${ta} → ${tb})`,robTitle:b=>`Robustesse du rang, ${b}`,ivText:(p5,p95,k)=>`Dans 90 % des simulations, entre le rang ${p5} et ${p95} (officiel : ${k})`,
 dimension:'Dimension',dlUnavailable:'Les téléchargements fonctionnent dans claude.ai.',dlPreparing:'Préparation du fichier…',dlDone:f=>`Terminé : ${f}`,dlDeclined:'Téléchargement annulé.',dlWait:'Un téléchargement est en cours ; réessayez.',dlFail:'Impossible de générer le fichier.',
-pdfTitle:'ICCEM Oaxaca · Rapport territorial',pdfSource:'Source : INEGI, DENUE. Réalisé par le Dr Antonio Salazar Campos, UNISTMO',pdfMethod:'ICCEM : six dimensions pondérées par ACP, calculées à partir du DENUE de l’INEGI et normalisées 0–100 avec des bornes communes à toutes les années. Moyennes territoriales : moyenne simple des municipalités. Stabilité : 1 000 simulations de poids de Dirichlet.'};
+pdfTitle:'Portail d’intelligence territoriale – Oaxaca · Rapport ICCEM',pdfSource:'Source : INEGI, DENUE. Réalisé par le Dr Antonio Salazar Campos, UNISTMO',pdfMethod:'ICCEM : six dimensions pondérées par ACP, calculées à partir du DENUE de l’INEGI et normalisées 0–100 avec des bornes communes à toutes les années. Moyennes territoriales : moyenne simple des municipalités. Stabilité : 1 000 simulations de poids de Dirichlet.'};
 
 tx.de={
+brandName:'Portal für territoriale Intelligenz – Oaxaca',
 readingState:(bd,bv,wd,wv,B,chg,A)=>`Lesart: Für ganz Oaxaca ist ${bd} (${bv}) die stärkste und ${wd} (${wv}) die schwächste Dimension. Der durchschnittliche ICCEM ${B} veränderte sich seit ${A} um ${chg} Punkte.`,
-brandSub:'Territoriales Informationssystem · Kommunale Wettbewerbsfähigkeit in Oaxaca',language:'Sprache',menu:'MENÜ',madeBy:'Entwickelt von Dr. Antonio Salazar Campos · UNISTMO Campus Ixtepec · Daten: INEGI, DENUE',
+brandSub:'Index der kommunalen Wettbewerbsfähigkeit (ICCEM) · 570 Gemeinden',language:'Sprache',menu:'MENÜ',madeBy:'Entwickelt von Dr. Antonio Salazar Campos · UNISTMO Campus Ixtepec · Daten: INEGI, DENUE',
 region:'Region',district:'Distrikt',municipality:'Gemeinde',yearBase:'Basisjahr',yearCmp:'Vergleichsjahr',onlyCiit:'Nur CIIT (46)',pdf:'PDF-Bericht',keyInd:'KENNZAHLEN',heat:'Heatmap',
 hexTitle:'Gleichgewichts-Sechseck',hexSub:'Sechs ICCEM-Dimensionen, 0–100',regions:'Regionen',districts:'Distrikte',unitA:'Gebiet A',unitB:'Gebiet B',clickSort:'Kopfzeile antippen zum Sortieren, Zeile zum Vergleichen',
 mxNote:'Farbe je Spalte: dunkler = höherer Wert',lqNote:'Standortquotient: >1 Spezialisierung ggü. Oaxaca (rot), <1 Unterrepräsentation (blau)',
@@ -148,11 +152,12 @@ scenario:'Szenario',weights:'Gewichte D1–D6 (%)',top50:'Überlappung Top 50',s
 places:'Rangänderung',regPlace:'Regionaler Rang',rankNote:(n,s,b,a)=>`${n} Gemeinden (${s}). „Rang“ = Landesrang ${b}; „Rangänderung“ seit ${a}. Zeile antippen für den Steckbrief.`,
 fichaAuto:s=>`Keine Gemeinde gewählt: gezeigt wird die erste von ${s}.`,inhab:'Einw. (2020)',officialCiit:'Offizieller ICCEM-CIIT (46 Gemeinden)',dimsYears:(a,b)=>`Dimensionen, ${a} → ${b}`,secDetail:(a,b,ta,tb)=>`Betriebe nach Sektor, ${a} → ${b} (${ta} → ${tb})`,robTitle:b=>`Robustheit des Rangs, ${b}`,ivText:(p5,p95,k)=>`In 90 % der Simulationen zwischen Rang ${p5} und ${p95} (offiziell: ${k})`,
 dimension:'Dimension',dlUnavailable:'Downloads funktionieren in claude.ai.',dlPreparing:'Datei wird vorbereitet…',dlDone:f=>`Fertig: ${f}`,dlDeclined:'Download abgebrochen.',dlWait:'Ein Download läuft; bitte kurz warten.',dlFail:'Datei konnte nicht erstellt werden.',
-pdfTitle:'ICCEM Oaxaca · Gebietsbericht',pdfSource:'Quelle: INEGI, DENUE. Erstellt von Dr. Antonio Salazar Campos, UNISTMO',pdfMethod:'ICCEM: sechs PCA-gewichtete Dimensionen aus dem INEGI-DENUE, 0–100 normiert mit jahresübergreifenden Grenzen. Gebietswerte: einfacher Mittelwert der Gemeinden. Stabilität: 1.000 Dirichlet-Gewichtssimulationen.'};
+pdfTitle:'Portal für territoriale Intelligenz – Oaxaca · ICCEM-Bericht',pdfSource:'Quelle: INEGI, DENUE. Erstellt von Dr. Antonio Salazar Campos, UNISTMO',pdfMethod:'ICCEM: sechs PCA-gewichtete Dimensionen aus dem INEGI-DENUE, 0–100 normiert mit jahresübergreifenden Grenzen. Gebietswerte: einfacher Mittelwert der Gemeinden. Stabilität: 1.000 Dirichlet-Gewichtssimulationen.'};
 
 tx.pt={
+brandName:'Portal de Inteligência Territorial – Oaxaca',
 readingState:(bd,bv,wd,wv,B,chg,A)=>`Leitura: no conjunto de Oaxaca, a dimensão mais forte é ${bd} (${bv}) e a mais fraca ${wd} (${wv}). O ICCEM médio ${B} variou ${chg} pontos desde ${A}.`,
-brandSub:'Sistema de inteligência territorial · Competitividade econômica municipal de Oaxaca',language:'Idioma',menu:'MENU',madeBy:'Desenvolvido pelo Dr. Antonio Salazar Campos · UNISTMO Campus Ixtepec · Dados: INEGI, DENUE',
+brandSub:'Índice de Competitividade Econômica Municipal (ICCEM) · 570 municípios',language:'Idioma',menu:'MENU',madeBy:'Desenvolvido pelo Dr. Antonio Salazar Campos · UNISTMO Campus Ixtepec · Dados: INEGI, DENUE',
 region:'Região',district:'Distrito',municipality:'Município',yearBase:'Ano base',yearCmp:'Ano de comparação',onlyCiit:'Só CIIT (46)',pdf:'Relatório PDF',keyInd:'INDICADORES-CHAVE',heat:'Mapa de calor',
 hexTitle:'Hexágono de equilíbrio',hexSub:'Seis dimensões do ICCEM, 0–100',regions:'Regiões',districts:'Distritos',unitA:'Território A',unitB:'Território B',clickSort:'Toque num cabeçalho para ordenar e numa linha para comparar',
 mxNote:'Cor por coluna: mais escuro, maior pontuação',lqNote:'Quociente locacional: >1 especialização frente a Oaxaca (vermelho), <1 sub-representação (azul)',
@@ -178,11 +183,12 @@ scenario:'Cenário',weights:'Pesos D1–D6 (%)',top50:'Coincidência top 50',sce
 places:'Posições',regPlace:'Posição regional',rankNote:(n,s,b,a)=>`${n} municípios (${s}). "Posição" é a posição estadual em ${b}; "Posições" mostra quanto subiu (+) ou caiu (−) desde ${a}.`,
 fichaAuto:s=>`Nenhum município escolhido: mostra-se o primeiro de ${s}.`,inhab:'hab. (2020)',officialCiit:'ICCEM-CIIT oficial (46 municípios)',dimsYears:(a,b)=>`Dimensões, ${a} → ${b}`,secDetail:(a,b,ta,tb)=>`Unidades econômicas por setor, ${a} → ${b} (${ta} → ${tb})`,robTitle:b=>`Robustez da posição, ${b}`,ivText:(p5,p95,k)=>`Em 90 % das simulações fica entre a posição ${p5} e ${p95} (oficial: ${k})`,
 dimension:'Dimensão',dlUnavailable:'Os downloads funcionam no claude.ai.',dlPreparing:'Preparando o arquivo…',dlDone:f=>`Pronto: ${f}`,dlDeclined:'Download cancelado.',dlWait:'Há um download em andamento; tente em instantes.',dlFail:'Não foi possível gerar o arquivo.',
-pdfTitle:'ICCEM Oaxaca · Relatório territorial',pdfSource:'Fonte: INEGI, DENUE. Elaboração: Dr. Antonio Salazar Campos, UNISTMO',pdfMethod:'ICCEM: seis dimensões com pesos ACP, calculadas a partir do DENUE do INEGI e normalizadas 0–100 com limites comuns a todos os anos. Médias territoriais: média simples dos municípios. Estabilidade: 1.000 simulações de pesos Dirichlet.'};
+pdfTitle:'Portal de Inteligência Territorial – Oaxaca · Relatório ICCEM',pdfSource:'Fonte: INEGI, DENUE. Elaboração: Dr. Antonio Salazar Campos, UNISTMO',pdfMethod:'ICCEM: seis dimensões com pesos ACP, calculadas a partir do DENUE do INEGI e normalizadas 0–100 com limites comuns a todos os anos. Médias territoriais: média simples dos municípios. Estabilidade: 1.000 simulações de pesos Dirichlet.'};
 
 tx.zh={
+brandName:'瓦哈卡地域情报门户',
 readingState:(bd,bv,wd,wv,B,chg,A)=>`解读：瓦哈卡全州最强的维度是 ${bd}（${bv}），最弱的是 ${wd}（${wv}）。${B} 年平均 ICCEM 自 ${A} 年以来变化 ${chg} 分。`,
-brandSub:'地域情报系统 · 瓦哈卡州市镇经济竞争力',language:'语言',menu:'菜单',madeBy:'开发：Antonio Salazar Campos 博士 · UNISTMO 伊斯特佩克校区 · 数据：INEGI DENUE',
+brandSub:'市镇经济竞争力指数（ICCEM）· 570 个市镇',language:'语言',menu:'菜单',madeBy:'开发：Antonio Salazar Campos 博士 · UNISTMO 伊斯特佩克校区 · 数据：INEGI DENUE',
 region:'地区',district:'区',municipality:'市镇',yearBase:'基准年',yearCmp:'对比年',onlyCiit:'仅 CIIT（46）',pdf:'PDF 报告',keyInd:'关键指标',heat:'热力图',
 hexTitle:'均衡六边形',hexSub:'ICCEM 六个维度，0–100',regions:'地区',districts:'区',unitA:'地域 A',unitB:'地域 B',clickSort:'点击表头排序，点击行进行比较',
 mxNote:'按列着色：越深得分越高',lqNote:'区位商：>1 相对瓦哈卡专业化（红），<1 偏低（蓝）',ssNote:'以瓦哈卡州为参照的偏离-份额分析：经济单位变化分为全州效应、结构效应和竞争效应。',
@@ -209,8 +215,9 @@ fichaAuto:s=>`未选择市镇：显示 ${s} 排名第一者。`,inhab:'人（202
 dimension:'维度',dlUnavailable:'在 claude.ai 中打开即可下载。',dlPreparing:'正在准备文件…',dlDone:f=>`完成：${f}`,dlDeclined:'已取消下载。',dlWait:'下载进行中，请稍候。',dlFail:'无法生成文件。'};
 
 tx.ja={
+brandName:'地域インテリジェンス・ポータル – オアハカ',
 readingState:(bd,bv,wd,wv,B,chg,A)=>`読み方：オアハカ州全体で最も強い次元は ${bd}（${bv}）、最も弱いのは ${wd}（${wv}）。${B} 年の平均 ICCEM は ${A} 年から ${chg} ポイント変化しました。`,
-brandSub:'地域インテリジェンス・システム · オアハカ州自治体の経済競争力',language:'言語',menu:'メニュー',madeBy:'開発：Antonio Salazar Campos 博士 · UNISTMO イステペック校 · データ：INEGI DENUE',
+brandSub:'自治体経済競争力指数（ICCEM）· 570 自治体',language:'言語',menu:'メニュー',madeBy:'開発：Antonio Salazar Campos 博士 · UNISTMO イステペック校 · データ：INEGI DENUE',
 region:'地域',district:'地区',municipality:'自治体',yearBase:'基準年',yearCmp:'比較年',onlyCiit:'CIIT のみ（46）',pdf:'PDF レポート',keyInd:'主要指標',heat:'ヒートマップ',
 hexTitle:'バランス六角形',hexSub:'ICCEM の 6 次元、0–100',regions:'地域',districts:'地区',unitA:'地域 A',unitB:'地域 B',clickSort:'見出しで並べ替え、行をタップして比較',
 mxNote:'列ごとの色：濃いほど高得点',lqNote:'立地係数：>1 オアハカ比で特化（赤）、<1 過小（青）',ssNote:'オアハカ州を基準としたシフト・シェア分析：事業所数の変化を州効果・構造効果・競争効果に分解します。',
@@ -237,7 +244,7 @@ fichaAuto:s=>`自治体未選択：${s} の 1 位を表示しています。`,in
 dimension:'次元',dlUnavailable:'claude.ai で開くとダウンロードできます。',dlPreparing:'ファイルを準備中…',dlDone:f=>`完了：${f}`,dlDeclined:'ダウンロードを取り消しました。',dlWait:'ダウンロード中です。少し待ってください。',dlFail:'ファイルを生成できませんでした。'};
 
 // Diidxazá: only terms already used in the ICCEM-CIIT comparator; everything else falls back to Spanish.
-tx.za={municipality:'Guidxi',v_ranking:'Ndaani’',ranking:'Ndaani’',place:'Ndaani’',stateRank:'Ndaani’ estatal',stability:'Guenda dxiee',v_sens:'Guenda nadxiee',t_sens:'Guenda nadxiee',
+tx.za={brandName:'Portal de Inteligencia Territorial – Oaxaca',municipality:'Guidxi',v_ranking:'Ndaani’',ranking:'Ndaani’',place:'Ndaani’',stateRank:'Ndaani’ estatal',stability:'Guenda dxiee',v_sens:'Guenda nadxiee',t_sens:'Guenda nadxiee',
 stab:['Napa dxiee','Dxiee','Moderado','Sensible'],levels:['Napa guenda','Galán napa','Galán beu','Ná bidaani’'],scenario:'Niza',ue:'Benda dxiña guenda gule',dimsShort:['Diversificación','Guenda gule','Manufactura','Guxidxi/Serv.','Infraestructura','Dinamismo'],
 dims:['D1 Diversificación','D2 Guenda gule','D3 Manufactura','D4 Guxidxi/Serv.','D5 Infraestructura','D6 Dinamismo'],brandSub:'Guenda ra guenda gule stinu guidxi · Oaxaca',language:'Diidxa’',
 sectors:["Guidxilayú","Minería","Energía","Construcción","Mfg alimentos/bebidas","Mfg yaga/gui’chi’","Mfg metal/maquinaria","Guxidxi guendabi’chi’","Guxidxi minorista","Transporte","Correos y almacenamiento","Información","Serv. financieros","Serv. inmobiliarios","Serv. profesionales","Corporativos","Serv. de apoyo","Educación","Salud","Esparcimiento","Alojamiento y alimentos","Otros servicios","Gobierno"]};
