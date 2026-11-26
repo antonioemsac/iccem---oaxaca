@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geoportal ICCEM Oaxaca</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Sans+3:wght@400;600;700&family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a state planning office's territorial atlas — sober, exact, bilingual-by-default.
+   IDEA: a SITDIS-style information system: a menu of modules on the left, an atlas plate and its dials on the right.
+   PICTURE: the municipal map of Oaxaca (choropleth or UE heat) beside the "hexágono de equilibrio" of the six ICCEM dimensions.
+   COLOUR and TYPE: grana cochinilla (level), añil (gain), mezcal amber (mid) on warm paper; Archivo + Source Sans 3.
+   LAYOUT: fixed sidebar ≥900px (top strip on phones); filters band; module content in cards. */
+:root{color-scheme:light dark;--bg:light-dark(#fbf8f4,#15110e);--side:light-dark(#f3ede6,#1c1714);--panel:light-dark(#ffffff,#221c18);--ink:light-dark(#1d1916,#f1ebe5);--mute:light-dark(#6b625b,#b3a89f);--line:light-dark(#e6ddd3,#3a312b);--grana:#a3123a;--anil:#24458f;--amber:#c27a1a;--hi:light-dark(#1d1916,#ffffff);--paper:light-dark(#f4efe9,#2a231e);--heatbg:light-dark(#ece4da,#2f2722)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Source Sans 3","Noto Sans SC","Noto Sans JP",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:Archivo,"Noto Sans SC","Noto Sans JP",system-ui,sans-serif;line-height:1.1;text-wrap:balance;margin:0}
+h1{font-size:clamp(26px,3.4vw,40px);font-weight:800}h2{font-size:clamp(20px,2.2vw,26px);font-weight:800}h3{font-size:17px;font-weight:700}
+.app{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100vh;background:linear-gradient(90deg,var(--side) 260px,transparent 260px)}
+aside.side{background:var(--side);border-right:1px solid var(--line);padding:22px 16px;position:sticky;top:0;height:100vh;overflow:auto;display:flex;flex-direction:column;gap:14px}
+.brand b{font:800 22px/1.1 Archivo,sans-serif;display:block}.brand span{font-size:13px;color:var(--mute)}
+.mark{width:44px;height:44px;margin-bottom:8px}
+nav.menu{display:flex;flex-direction:column;gap:2px}
+nav.menu a{display:flex;align-items:center;gap:10px;min-height:44px;padding:6px 10px;border-radius:8px;color:var(--ink);text-decoration:none;font-weight:600;font-size:15px;border-left:3px solid transparent}
+nav.menu a svg{flex:none;width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7}
+nav.menu a[aria-current=page]{background:var(--panel);border-left-color:var(--grana);color:var(--grana)}
+.small{font-size:13px;color:var(--mute)}
+.lang select{width:100%}
+main{padding:clamp(16px,2.6vw,32px) max(3vw,14px) 48px}
+.head{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:end;justify-content:space-between}
+.sub{color:var(--mute);margin:6px 0 0;max-width:80ch}
+.filters{display:flex;flex-wrap:wrap;gap:10px 12px;align-items:end;margin:16px 0 8px}
+label.f{display:flex;flex-direction:column;font-size:13px;color:var(--mute);gap:3px}
+select,input[type=search]{font:16px "Source Sans 3",sans-serif;min-height:44px;padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);max-width:100%}
+select:focus,input:focus,button:focus-visible,a:focus-visible{outline:3px solid color-mix(in srgb,var(--anil) 55%,transparent);outline-offset:1px}
+.chk{display:flex;align-items:center;gap:6px;min-height:44px;font-size:15px}.chk input{width:20px;height:20px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-left:auto}
+.btn{display:inline-flex;align-items:center;gap:7px;font:600 15px "Source Sans 3",sans-serif;min-height:44px;padding:0 14px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+.btn.pri{background:#1f4d36;border-color:#1f4d36;color:#fff}.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8}
+.seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{font:600 15px "Source Sans 3",sans-serif;min-height:44px;padding:0 13px;border:0;background:var(--panel);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.lbl{font:700 12px/1 "Source Sans 3";letter-spacing:.06em;color:var(--mute);margin:20px 0 8px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c,var(--line));border-radius:10px;padding:10px 12px}
+.kpi.main{background:var(--c);color:#fff;border-color:var(--c)}.kpi.main .k,.kpi.main .lv{color:#fff}
+.kpi .k{font-size:12.5px;color:var(--mute);font-weight:700}
+.kpi b{display:block;font:800 clamp(22px,2.4vw,28px)/1.15 Archivo,sans-serif}
+.lv{font-size:13px;color:var(--mute);display:flex;align-items:center;gap:5px}.lv i{width:9px;height:9px;border-radius:50%;background:var(--c)}
+.grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:16px;margin-top:16px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin-top:16px}
+@media(max-width:1100px){.grid{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:800px){.two{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
+.card .ch{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.fig{position:relative;min-height:340px}.fig>svg{position:absolute;inset:0;width:100%;height:100%}
+.mapfig{min-height:min(64vh,560px);background:var(--paper);border-radius:8px;overflow:hidden}
+.mapfig path.m{stroke:light-dark(#fff,#15110e);stroke-width:.35;cursor:pointer}
+.mapfig path.dim{opacity:.18}
+.mapfig .lab{font:600 11px "Source Sans 3",sans-serif;fill:var(--ink);paint-order:stroke;stroke:var(--paper);stroke-width:3px;pointer-events:none}
+.zoom{position:absolute;left:8px;top:8px;display:flex;flex-direction:column;gap:4px;z-index:2}
+.zoom button{width:40px;height:40px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font:700 19px Archivo;cursor:pointer}
+.attr{position:absolute;right:4px;bottom:3px;font-size:11px;background:color-mix(in srgb,var(--panel) 80%,transparent);padding:1px 5px;border-radius:3px;color:var(--mute)}.attr a{color:inherit}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);padding:6px 9px;border-radius:6px;font-size:14px;display:none;max-width:250px;z-index:3}
+.legend{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mute);margin-top:8px;flex-wrap:wrap}
+.legend .bar{height:12px;width:min(240px,55vw);border-radius:3px}
+.dot{display:inline-block;width:11px;height:11px;border-radius:2px;vertical-align:-1px;margin-right:3px}
+.note{font-size:14px;color:var(--mute)}
+.read{font-size:15.5px;margin:10px 0 0}
+.rows{display:grid;gap:6px;margin-top:8px}
+.row{display:grid;grid-template-columns:10em minmax(0,1fr) 5.5em;gap:8px;align-items:center;font-size:14px}
+.row .t{height:10px;border-radius:2px;background:var(--line);position:relative;overflow:hidden}
+.row .t i{position:absolute;left:0;top:0;height:10px;background:var(--grana)}
+.row .v{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:12.5px;color:var(--mute);font-weight:700;white-space:nowrap}
+th[data-k]{cursor:pointer}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tbody tr.click{cursor:pointer}tbody tr.click:hover{background:color-mix(in srgb,var(--grana) 7%,transparent)}
+.scroll{overflow-x:auto}
+.up{color:var(--anil)}.down{color:var(--grana)}
+.st{display:inline-block;font:600 12.5px "Source Sans 3";padding:1px 7px;border-radius:999px;white-space:nowrap}
+.st0{background:#24458f;color:#fff}.st1{background:#93aede;color:#14254d}.st2{background:#f0c9a0;color:#5a3307}.st3{background:#a3123a;color:#fff}
+.tag{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:4px;padding:0 5px;color:var(--mute);margin-left:4px}
+.mx td{text-align:center;font-variant-numeric:tabular-nums;font-size:13px;padding:5px 4px;border:1px solid var(--panel)}
+.mx th{font-size:11.5px;white-space:normal;vertical-align:bottom;text-align:center;min-width:44px}
+.mx td.rn{text-align:left;font-weight:600;white-space:nowrap}
+.stk{display:flex;height:20px;border-radius:4px;overflow:hidden}.stk span{display:block;height:100%}
+.ss{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:8px 0}
+.iv{position:relative;height:22px;margin:8px 0 2px;background:var(--line);border-radius:3px}
+.iv i{position:absolute;top:4px;height:14px;background:color-mix(in srgb,var(--anil) 45%,transparent);border-radius:2px}
+.iv b{position:absolute;top:0;width:3px;height:22px;background:var(--grana)}
+.ivl{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--mute)}
+details{margin-top:10px}summary{cursor:pointer;font-weight:600;min-height:32px}
+.more{margin-top:10px}
+.msg{font-size:14px;color:var(--mute);min-height:20px}
+.view[hidden]{display:none}
+.method p,.method li{max-width:80ch}
+@media(max-width:900px){.app{grid-template-columns:minmax(0,1fr);background:none}.lang select{min-width:140px}aside.side{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line);padding:12px 14px}
+  nav.menu{flex-direction:row;overflow-x:auto;gap:4px}nav.menu a{flex:none;border-left:0;border-bottom:3px solid transparent}nav.menu a[aria-current=page]{border-bottom-color:var(--grana)}
+  .side .hide-s{display:none}.brandrow{display:flex;gap:12px;align-items:center;justify-content:space-between}.mark{margin:0}.btns{margin-left:0}}
+@media(max-width:600px){table{font-size:13px}.row{grid-template-columns:7.5em minmax(0,1fr) 4.8em;font-size:13px}.filters label.f{flex:1 1 45%}.filters select,.filters input{width:100%}
+  .stack thead{display:none}.stack tr{display:grid;padding-block:8px}.stack td{display:flow-root;border:0;padding:2px 0;padding-inline-start:8em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:7.5em;margin-inline-start:-8em;color:var(--mute)}}
+</style>
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+  <div class="brandrow">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 44 44" aria-hidden="true"><rect width="44" height="44" rx="10" fill="#a3123a"/><path d="M8 32 L16 20 L22 26 L30 12 L36 32 Z" fill="#fbf8f4" opacity=".92"/><circle cx="31" cy="11" r="3.2" fill="#c27a1a"/></svg>
+      <b>ICCEM · Oaxaca</b>
+      <span data-i="brandSub"></span>
+    </div>
+    <label class="f lang"><span data-i="language"></span><select id="lang"></select></label>
+  </div>
+  <div class="lbl hide-s" data-i="menu"></div>
+  <nav class="menu" id="menu" aria-label="Módulos"></nav>
+  <div class="small hide-s" style="margin-top:auto" data-i="madeBy"></div>
+</aside>
+
+<main>
+  <div class="head">
+    <div><h1 id="title"></h1><p class="sub" id="subtitle"></p></div>
+  </div>
+
+  <div class="filters">
+    <label class="f"><span data-i="region"></span><select id="fReg"></select></label>
+    <label class="f"><span data-i="district"></span><select id="fDis"></select></label>
+    <label class="f"><span data-i="municipality"></span><select id="fMun"></select></label>
+    <label class="f"><span data-i="yearBase"></span><select id="yA"></select></label>
+    <label class="f"><span data-i="yearCmp"></span><select id="yB"></select></label>
+    <label class="chk"><input type="checkbox" id="fCiit"> <span data-i="onlyCiit"></span></label>
+    <div class="btns">
+      <button class="btn pri" id="dlX" disabled><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8l8 8M16 8l-8 8"/></svg>Excel</button>
+      <button class="btn" id="dlS" disabled><svg viewBox="0 0 24 24"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg>Shapefile</button>
+      <button class="btn" id="dlP" disabled><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7"/></svg><span data-i="pdf"></span></button>
+    </div>
+  </div>
+  <div class="msg" id="dlMsg" aria-live="polite"></div>
+
+  <!-- PANORAMA -->
+  <section class="view" id="v-panorama">
+    <div class="lbl" data-i="keyInd"></div>
+    <div class="kpis" id="kpis"></div>
+    <div class="grid">
+      <div class="card">
+        <div class="ch"><h3 id="mapTitle"></h3>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+            <label class="f" style="flex-direction:row;align-items:center;gap:6px"><select id="ind" aria-label="Indicador"></select></label>
+            <label class="chk"><input type="checkbox" id="heat"> <span data-i="heat"></span></label>
+          </div></div>
+        <div class="fig mapfig" id="mapBox"><svg id="map" role="img" aria-label="Mapa"></svg>
+          <div class="zoom"><button id="zin" aria-label="+">+</button><button id="zout" aria-label="−">−</button><button id="zre" aria-label="⟲">⟲</button></div>
+          <div class="tip" id="tip"></div></div>
+        <div class="legend" id="legend"></div>
+      </div>
+      <div class="card">
+        <div class="ch"><h3 data-i="hexTitle"></h3><span class="small" data-i="hexSub"></span></div>
+        <div class="fig" style="min-height:330px"><svg id="radar" role="img" aria-label="Radar"></svg></div>
+        <div class="legend" id="radarLeg"></div>
+        <p class="read" id="reading"></p>
+      </div>
+    </div>
+    <div class="two">
+      <div class="card"><h3 id="secTitle"></h3><div class="rows" id="secRows"></div></div>
+      <div class="card"><h3 id="trendTitle"></h3><div class="fig" style="min-height:250px"><svg id="trend" role="img" aria-label="Tendencia"></svg></div><div class="legend" id="trendLeg"></div></div>
+    </div>
+  </section>
+
+  <!-- REGIONAL COMPETITIVENESS -->
+  <section class="view" id="v-regional" hidden>
+    <div class="filters" style="margin-top:0">
+      <div class="seg" role="group"><button id="uR" aria-pressed="true" data-i="regions"></button><button id="uD" aria-pressed="false" data-i="districts"></button></div>
+      <label class="f"><span data-i="unitA"></span><select id="cA"></select></label>
+      <label class="f"><span data-i="unitB"></span><select id="cB"></select></label>
+    </div>
+    <div class="card"><div class="ch"><h3 id="boardTitle"></h3><span class="small" data-i="clickSort"></span></div>
+      <div class="scroll"><table id="board"><thead></thead><tbody></tbody></table></div></div>
+    <div class="two">
+      <div class="card"><h3 id="duelTitle"></h3><div class="fig" style="min-height:320px"><svg id="radar2" role="img" aria-label="Radar"></svg></div><div class="legend" id="radar2Leg"></div>
+        <div class="rows" id="gapRows"></div><p class="read" id="duelRead"></p></div>
+      <div class="card"><h3 id="rmapTitle"></h3><div class="fig mapfig" style="min-height:360px" id="rmapBox"><svg id="rmap" role="img" aria-label="Mapa regional"></svg><div class="tip" id="rtip"></div></div><div class="legend" id="rmapLeg"></div></div>
+    </div>
+    <div class="card" style="margin-top:16px"><div class="ch"><h3 id="dimMxTitle"></h3><span class="small" data-i="mxNote"></span></div>
+      <div class="scroll"><table class="mx" id="dimMx"></table></div></div>
+    <div class="card" style="margin-top:16px"><div class="ch"><h3 id="lqTitle"></h3><span class="small" data-i="lqNote"></span></div>
+      <div class="scroll"><table class="mx" id="lqMx"></table></div></div>
+    <div class="card" style="margin-top:16px"><div class="ch"><h3 id="ssTitle"></h3></div>
+      <p class="note" data-i="ssNote"></p>
+      <div class="ss" id="ssKpi"></div>
+      <div class="scroll"><table class="stack" id="ssT"><thead></thead><tbody></tbody></table></div>
+      <details><summary data-i="ssAll"></summary><div class="scroll"><table id="ssAllT"><thead></thead><tbody></tbody></table></div></details>
+    </div>
+  </section>
+
+  <!-- YEARS -->
+  <section class="view" id="v-years" hidden>
+    <p class="read" id="cmpLede" style="margin-top:0"></p>
+    <div class="two">
+      <div class="card"><h3 data-i="gains"></h3><div class="scroll"><table class="stack"><thead id="gH"></thead><tbody id="gain"></tbody></table></div></div>
+      <div class="card"><h3 data-i="losses"></h3><div class="scroll"><table class="stack"><thead id="lH"></thead><tbody id="loss"></tbody></table></div></div>
+    </div>
+    <div class="card" style="margin-top:16px"><h3 data-i="regAvg"></h3>
+      <div class="fig" style="min-height:300px"><svg id="regChart" role="img" aria-label="Regiones"></svg></div><div class="legend" id="regLeg"></div></div>
+  </section>
+
+  <!-- SENSITIVITY -->
+  <section class="view" id="v-sens" hidden>
+    <p class="read" id="sensLede" style="margin-top:0"></p>
+    <div class="two">
+      <div class="card"><h3 data-i="scenVsAcp"></h3><div class="scroll"><table><thead id="scenH"></thead><tbody id="scenT"></tbody></table></div></div>
+      <div class="card"><h3 data-i="stabYear"></h3><div id="stkBox" class="rows"></div><div class="legend" id="stLeg"></div></div>
+    </div>
+  </section>
+
+  <!-- RANKING -->
+  <section class="view" id="v-ranking" hidden>
+    <div class="card">
+      <p class="note" id="rankNote"></p>
+      <div class="scroll"><table class="stack" id="rank"><thead></thead><tbody></tbody></table></div>
+      <button class="btn more" id="more" data-i="showMore"></button>
+    </div>
+  </section>
+
+  <!-- FICHA -->
+  <section class="view" id="v-ficha" hidden>
+    <div class="grid" style="margin-top:0">
+      <div class="card" id="ficha"></div>
+      <div class="card"><h3 data-i="hexTitle"></h3><div class="fig" style="min-height:330px"><svg id="radar3" role="img" aria-label="Radar"></svg></div><div class="legend" id="radar3Leg"></div>
+        <h3 style="margin-top:12px" id="robTitle"></h3><div id="rob"></div></div>
+    </div>
+  </section>
+
+  <!-- METHOD -->
+  <section class="view method" id="v-method" hidden>
+    <div class="card" id="methodBody"></div>
+  </section>
+</main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
